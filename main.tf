@@ -69,6 +69,6 @@ output "ec2_public_ip_control1" {
 output "ec2_public_ip_worker1" {
   value = ["${aws_instance.worker1.public_ip}"]
 }
-output "ec2_public_ip_control1" {
-  value = ["${aws_instance.worker1.public_ip}"]
+output "ec2_public_ip_worker2" {
+  value = ["${aws_instance.worker2.public_ip}"]
 }
