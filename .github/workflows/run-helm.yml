@@ -9,7 +9,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Install SSH Client
-      run: sudo apt-get update && sudo apt-get install openssh-client scp opnessh -y
+      run: sudo apt-get update && sudo apt-get install openssh-client scp -y
       
     - name: Add SSH key to ssh-agent
       run: |
