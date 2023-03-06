@@ -1,0 +1,36 @@
+name: Run Ansible playbook 
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Install SSH Client
+      run: sudo apt-get update && sudo apt-get install openssh-client -y
+    - name: Add SSH key to ssh-agent
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/id_rsa
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+    - name: Install Ansible
+      run: |
+        sudo apt update
+        sudo apt install software-properties-common -y
+        sudo apt-add-repository --yes --update ppa:ansible/ansible
+        sudo apt install ansible -y
+        
+    - name: Run Ansible playbook
+      run: |
+        cd ansible-roles
+        ansible-playbook playbook.yml -i hosts --extra-vars "variable=value"
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: false
+        USER: root
+        HOST_KEY_CHECKING: false
+        ansible_python_interpreter: "/usr/bin/python3"
