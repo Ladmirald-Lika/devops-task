@@ -25,7 +25,7 @@ from_port = 22
 // Ec2 Creation
 resource "aws_instance" "control1" {
   ami           = "ami-0d1ddd83282187d18"
-  instance_type = "t2.small"
+  instance_type = "t2.medium"
   key_name      = "aldi"
   vpc_security_group_ids = [aws_security_group.allow-all-sg.id]
   ebs_block_device {
