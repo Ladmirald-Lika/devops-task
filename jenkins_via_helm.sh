@@ -10,7 +10,7 @@ sudo apt-get install helm
 
 helm repo add jenkins https://charts.jenkins.io
 helm repo update
-helm install jenkins jenkins/jenkins > /var/log/helm.txt
+helm install jenkins jenkins/jenkins > /home/ubuntu/helm.txt
 
 # This will create a Kubernetes deployment with one replica and a service for accessing the Jenkins web UI.
 # Please read the log at /var/log/helm.txt and you will find details to access Jenkins
