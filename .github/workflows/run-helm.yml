@@ -9,7 +9,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Install SSH Client
-      run: sudo apt-get update && sudo apt-get install openssh-client scp -y
+      run: sudo apt-get update && sudo apt-get install openssh-client -y
       
     - name: Add SSH key to ssh-agent
       run: |
@@ -23,5 +23,6 @@ jobs:
 
     - name: Copy and run helm script
       run: |
-       scp -i ~/.ssh/id_rsa jenkins_via_helm.sh ubuntu@3.10.179.143:/home/ubuntu
-       ssh -i ~/.ssh/id_rsa ubuntu@3.10.179.143 "chmod a+x /home/ubuntu/jenkins_via_helm.sh && /home/ubuntu/jenkins_via_helm.sh"
+       #scp -i ~/.ssh/id_rsa jenkins_via_helm.sh ubuntu@3.10.179.143:/home/ubuntu
+       #ssh -i ~/.ssh/id_rsa ubuntu@3.10.179.143 "chmod a+x /home/ubuntu/jenkins_via_helm.sh && /home/ubuntu/jenkins_via_helm.sh"
+        ssh -i ~/.ssh/id_rsa ubuntu@3.10.179.143 "touch gogo.txt"
