@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - create_user
+    - allow_user_passwordless_sudo
+    - set_up_ssh_for_user
+    - install_dependencies
+
+- hosts: control_plane
+  become: yes
+  roles:
+    - install_kubectl
+    - initialize_cluster
+    - install_Pod_network
+    - get_join_command
+
+- hosts: workers
+  become: yes
+  roles:
+    - join_workers_in_cluster

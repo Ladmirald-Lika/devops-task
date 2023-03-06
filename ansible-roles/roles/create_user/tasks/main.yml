@@ -1,0 +1,4 @@
+---
+
+- name: create the 'ubuntu' user
+  user: name=ubuntu append=yes state=present createhome=yes shell=/bin/bash
