@@ -19,7 +19,7 @@ jobs:
         eval "$(ssh-agent -s)"
         ssh-add ~/.ssh/id_rsa
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.PROD_KEY }}
 
     - name: Copy and run helm script
       run: |
