@@ -22,7 +22,4 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.PROD_KEY }}
 
     - name: Copy and run helm script
-      run: |
-       #scp -i ~/.ssh/id_rsa jenkins_via_helm.sh ubuntu@3.10.179.143:/home/ubuntu
-       #ssh -i ~/.ssh/id_rsa ubuntu@3.10.179.143 "chmod a+x /home/ubuntu/jenkins_via_helm.sh && /home/ubuntu/jenkins_via_helm.sh"
-        ssh -i ~/.ssh/id_rsa ubuntu@3.10.179.143 "touch gogo.txt"
+      run: ssh -i ~/.ssh/id_rsa ubuntu@3.10.179.143 "touch gogo.txt"
