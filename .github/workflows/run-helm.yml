@@ -8,18 +8,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       
-    - name: Install SSH Client
-      run: sudo apt-get update && sudo apt-get install openssh-client -y
-      
-    - name: Add SSH key to ssh-agent
-      run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        eval "$(ssh-agent -s)"
-        ssh-add ~/.ssh/id_rsa
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.PROD_KEY }}
+    - name: Install SSH Key
+      uses: shimataro/ssh-key-action@v2
+      with:
+          key: ${{ secrets.PROD_KEY }}
+          known_hosts: unnecessary
 
-    - name: Copy and run helm script
-      run: ssh -i ~/.ssh/id_rsa ubuntu@3.10.179.143 "touch gogo.txt"
+    - name: Adding Known Hosts
+      run: ssh-keyscan -p 22 -H ${{ secrets.CONTROL1_IP }}  >> ~/.ssh/known_hosts
+
+    - name: SCP
+      run: scp  jenkins_via_helm.sh ubuntu@${{ secrets.CONTROL1_IP }}/home/ubuntu
