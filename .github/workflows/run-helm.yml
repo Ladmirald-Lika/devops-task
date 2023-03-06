@@ -1,0 +1,27 @@
+name: Run helm 
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Install SSH Client
+      run: sudo apt-get update && sudo apt-get install openssh-client -y
+      
+    - name: Add SSH key to ssh-agent
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/id_rsa
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+    - name: Copy and run helm script
+      run: |
+       scp  jenkins_via_helm.sh ubuntu@${{ secrets.CONTROL1_IP }}/home/ubuntu
+       ssh ubuntu@${{ secrets.CONTROL1_IP }} "chmod a+x /home/ubuntu/jenkins_via_helm.sh && ./home/ubuntu/jenkins_via_helm.sh"
