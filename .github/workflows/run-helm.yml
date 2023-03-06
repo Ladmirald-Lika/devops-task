@@ -23,5 +23,5 @@ jobs:
 
     - name: Copy and run helm script
       run: |
-       scp  jenkins_via_helm.sh ubuntu@${{ secrets.CONTROL1_IP }}/home/ubuntu
+       scp -r jenkins_via_helm.sh ubuntu@${{ secrets.CONTROL1_IP }}:/home/ubuntu
        ssh ubuntu@${{ secrets.CONTROL1_IP }} "chmod a+x /home/ubuntu/jenkins_via_helm.sh && /home/ubuntu/jenkins_via_helm.sh"
