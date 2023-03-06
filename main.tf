@@ -26,7 +26,7 @@ from_port = 22
 resource "aws_instance" "control1" {
   ami           = "ami-0c0933ae5caf0f5f9"
   instance_type = "t2.small"
-  key_name      = "aldi_key"
+  key_name      = "aldi"
   vpc_security_group_ids = [aws_security_group.allow-all-sg.id]
   ebs_block_device {
   device_name = "/dev/sda1"
@@ -40,7 +40,7 @@ resource "aws_instance" "control1" {
 resource "aws_instance" "worker1" {
   ami           = "ami-0c0933ae5caf0f5f9"
   instance_type = "t2.small"
-  key_name      = "aldi_key"
+  key_name      = "aldi"
   vpc_security_group_ids = [aws_security_group.allow-all-sg.id]
   ebs_block_device {
   device_name = "/dev/sda1"
@@ -53,7 +53,7 @@ resource "aws_instance" "worker1" {
 resource "aws_instance" "worker2" {
   ami           = "ami-0c0933ae5caf0f5f9"
   instance_type = "t2.small"
-  key_name      = "aldi_key"
+  key_name      = "aldi"
   vpc_security_group_ids = [aws_security_group.allow-all-sg.id]
   ebs_block_device {
   device_name = "/dev/sda1"
