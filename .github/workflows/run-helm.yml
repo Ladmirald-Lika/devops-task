@@ -18,4 +18,6 @@ jobs:
       run: ssh-keyscan -p 22 -H ${{ secrets.CONTROL1_IP }}  >> ~/.ssh/known_hosts
 
     - name: SCP
-      run: scp  jenkins_via_helm.sh ubuntu@${{ secrets.CONTROL1_IP }}:/home/ubuntu
+      run: |
+       scp  jenkins_via_helm.sh ubuntu@${{ secrets.CONTROL1_IP }}:/home/ubuntu
+       ssh ubuntu@${{ secrets.CONTROL1_IP }} "chmod a+x /home/ubuntu/jenkins_via_helm.sh && ./home/ubuntu/jenkins_via_helm.sh"
