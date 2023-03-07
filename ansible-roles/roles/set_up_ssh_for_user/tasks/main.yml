@@ -6,8 +6,9 @@
    # - ~/.ssh/id_rsa.pub
 
 - name: Copy SSH key from GitHub secrets to VMs
-  hosts: all
   gather_facts: false
+  hosts: all
+  
   tasks:
     - name: Retrieve SSH key from GitHub secrets
       shell: echo ${{ secrets.PRIVATE_KEY }} > /tmp/id_rsa
