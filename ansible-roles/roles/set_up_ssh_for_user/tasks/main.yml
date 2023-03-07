@@ -6,7 +6,8 @@
    # - ~/.ssh/id_rsa.pub
 
 - name: Copy SSH key from GitHub secrets to VMs
-  # hosts: all
+  hosts: all
+  gather_facts: false
   tasks:
     - name: Retrieve SSH key from GitHub secrets
       shell: echo ${{ secrets.PRIVATE_KEY }} > /tmp/id_rsa
@@ -22,3 +23,12 @@
         user: "{{ ansible_user }}"
         key: "{{ lookup('file', '/tmp/id_rsa.pub') }}"
         path: ~/.ssh/authorized_keys
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  tasks:
+    - name: Copy SSH key from GitHub secrets to VMs
+      authorized_key:
+        user: "{{ ansible_user }}"
+        key: "{{ lookup('file', '/tmp/id_rsa.pub') }}"
+        path: ~/.ssh/authorized_keys
+      with_inventory_hostnames: all
