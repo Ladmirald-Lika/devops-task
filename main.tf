@@ -35,26 +35,7 @@ resource "aws_instance" "control1" {
   tags = {
     Name = "control1"
   }
-   provisioner "file" {
-    content  = var.private_key
-    filename = "${path.module}/private_key.pem"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir -p ~/.ssh",
-      "cat ${path.module}/private_key.pem >> ~/.ssh/authorized_keys",
-      "rm ${path.module}/private_key.pem",
-    ]
-
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file("~/.ssh/id_rsa")
-      host        = self.public_ip
-    }
-  }
-}
+ }
 resource "aws_instance" "worker1" {
   ami           = "ami-0d1ddd83282187d18"
   instance_type = "t2.small"
@@ -66,25 +47,6 @@ resource "aws_instance" "worker1" {
   }
   tags = {
     Name = "worker1"
-  }
-   provisioner "file" {
-    content  = var.private_key
-    filename = "${path.module}/private_key.pem"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir -p ~/.ssh",
-      "cat ${path.module}/private_key.pem >> ~/.ssh/authorized_keys",
-      "rm ${path.module}/private_key.pem",
-    ]
-
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file("~/.ssh/id_rsa")
-      host        = self.public_ip
-    }
   }
 }
 resource "aws_instance" "worker2" {
@@ -98,25 +60,6 @@ resource "aws_instance" "worker2" {
   }
   tags = {
     Name = "worker2"
-  }
-   provisioner "file" {
-    content  = var.private_key
-    filename = "${path.module}/private_key.pem"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir -p ~/.ssh",
-      "cat ${path.module}/private_key.pem >> ~/.ssh/authorized_keys",
-      "rm ${path.module}/private_key.pem",
-    ]
-
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file("~/.ssh/id_rsa")
-      host        = self.public_ip
-    }
   }
 }
 output "ec2_public_ip_control1" {
