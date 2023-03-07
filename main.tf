@@ -35,7 +35,7 @@ resource "aws_instance" "control1" {
   tags = {
     Name = "control1"
   }
-
+}
 resource "aws_instance" "worker1" {
   ami           = "ami-0d1ddd83282187d18"
   instance_type = "t2.small"
@@ -48,7 +48,7 @@ resource "aws_instance" "worker1" {
   tags = {
     Name = "worker1"
   }
-
+}
 resource "aws_instance" "worker2" {
   ami           = "ami-0d1ddd83282187d18"
   instance_type = "t2.small"
@@ -61,7 +61,7 @@ resource "aws_instance" "worker2" {
   tags = {
     Name = "worker2"
   }
-
+}
 output "ec2_public_ip_control1" {
   value = ["${aws_instance.control1.public_ip}"]
 }
