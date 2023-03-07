@@ -20,9 +20,9 @@ jobs:
         with:
           terraform_wrapper: false
       - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.0
-      with:
-        ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
         
       - name: Terraform Apply
         id:   apply
