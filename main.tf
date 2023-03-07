@@ -36,7 +36,18 @@ resource "aws_instance" "control1" {
     Name = "control1"
   }
 }
+ provisioner "file" {
+    source      = "private_key.pem"
+    destination = "/home/ubuntu/.ssh/id_rsa"
+    mode        = "0600"
+  }
 
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = var.private_key
+    host        = self.public_ip
+  }
 resource "aws_instance" "worker1" {
   ami           = "ami-0d1ddd83282187d18"
   instance_type = "t2.small"
@@ -50,6 +61,18 @@ resource "aws_instance" "worker1" {
     Name = "worker1"
   }
 }
+ provisioner "file" {
+    source      = "private_key.pem"
+    destination = "/home/ubuntu/.ssh/id_rsa"
+    mode        = "0600"
+  }
+
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = var.private_key
+    host        = self.public_ip
+  }
 resource "aws_instance" "worker2" {
   ami           = "ami-0d1ddd83282187d18"
   instance_type = "t2.small"
@@ -63,6 +86,18 @@ resource "aws_instance" "worker2" {
     Name = "worker2"
   }
 }
+ provisioner "file" {
+    source      = "private_key.pem"
+    destination = "/home/ubuntu/.ssh/id_rsa"
+    mode        = "0600"
+  }
+
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = var.private_key
+    host        = self.public_ip
+  }
 output "ec2_public_ip_control1" {
   value = ["${aws_instance.control1.public_ip}"]
 }
