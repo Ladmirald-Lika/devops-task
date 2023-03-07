@@ -1,6 +1,24 @@
 ---
 
-- name: set up authorized keys for the ubuntu user
-  authorized_key: user=ubuntu key="{{item}}"
-  with_file:
-    - ~/.ssh/id_rsa.pub
+#name: set up authorized keys for the ubuntu user
+ # authorized_key: user=ubuntu key="{{item}}"
+  #with_file:
+   # - ~/.ssh/id_rsa.pub
+
+- name: Copy SSH key from GitHub secrets to VMs
+  hosts: all
+  tasks:
+    - name: Retrieve SSH key from GitHub secrets
+      shell: echo ${{ secrets.PRIVATE_KEY }} > /tmp/id_rsa
+      register: ssh_key
+
+    - name: Set permissions on SSH key file
+      file:
+        path: /tmp/id_rsa
+        mode: '0600'
+
+    - name: Copy SSH key to authorized_keys file
+      authorized_key:
+        user: "{{ ansible_user }}"
+        key: "{{ lookup('file', '/tmp/id_rsa.pub') }}"
+        path: ~/.ssh/authorized_keys
