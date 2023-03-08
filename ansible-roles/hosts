@@ -1,9 +1,9 @@
 [control_plane]
-control1 ansible_host=3.75.186.151 ansible_user=ubuntu
+control1 ansible_host=3.65.0.225 ansible_user=ubuntu
 
 [workers]
-worker1 ansible_host=18.197.151.186 ansible_user=ubuntu
-worker2 ansible_host=18.198.55.211 ansible_user=ubuntu
+worker1 ansible_host=3.66.222.183 ansible_user=ubuntu
+worker2 ansible_host=3.74.162.108 ansible_user=ubuntu
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
