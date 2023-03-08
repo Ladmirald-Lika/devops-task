@@ -1,6 +1,8 @@
 ---
 
 - name: install kubectl
+  become: yes
+  become_user: root
   apt:
     name: kubectl=1.22.4-00
     state: present
