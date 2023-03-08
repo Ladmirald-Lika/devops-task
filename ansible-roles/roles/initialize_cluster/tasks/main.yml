@@ -1,5 +1,7 @@
 ---
 - name: initialize the cluster
+  become: yes
+  become_user: root
   shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
   args:
     chdir: $HOME
@@ -14,6 +16,7 @@
     mode: 0755
 
 - name: copy admin.conf to user's kube config
+  become_user: root
   copy:
     src: /etc/kubernetes/admin.conf
     dest: /home/ubuntu/.kube/config
