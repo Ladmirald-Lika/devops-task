@@ -1,7 +1,6 @@
 ---
 - hosts: all
   become: yes
-  become_user: root
   roles:
   # - create_user
   # - set_up_ssh_for_user
@@ -9,7 +8,6 @@
 
 - hosts: control_plane
   become: yes
-  become_user: root
   roles:
     - install_kubectl
     - initialize_cluster
@@ -18,6 +16,5 @@
 
 - hosts: workers
   become: yes
-  become_user: root
   roles:
     - join_workers_in_cluster
