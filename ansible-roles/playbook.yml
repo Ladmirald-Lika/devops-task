@@ -2,8 +2,8 @@
 - hosts: all
   become: yes
   roles:
-   - create_user
-   - set_up_ssh_for_user
+  # - create_user
+  # - set_up_ssh_for_user
     - install_dependencies
 
 - hosts: control_plane
