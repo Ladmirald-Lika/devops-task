@@ -15,6 +15,6 @@
     - get_join_command
 
 - hosts: workers
-  #become: yes
+  become: yes
   roles:
     - join_workers_in_cluster
