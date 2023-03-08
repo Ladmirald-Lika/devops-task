@@ -13,13 +13,13 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
+      #  echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
         chmod 600 ~/.ssh/id_rsa
         eval "$(ssh-agent -s)"
         ssh-add ~/.ssh/id_rsa
       env:
         SSH_PRIVATE_KEY: ${{ secrets.PROD_KEY }}
-        SSH_PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+       # SSH_PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
     - name: Install Ansible
       run: |
         sudo apt update
@@ -33,6 +33,6 @@ jobs:
         ansible-playbook playbook.yml -i hosts --extra-vars "variable=value"
       env:
         ANSIBLE_HOST_KEY_CHECKING: false
-        USER: root
+        USER: ubuntu
         HOST_KEY_CHECKING: false
         ansible_python_interpreter: "/usr/bin/python3"
