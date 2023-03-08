@@ -5,6 +5,7 @@
   #with_file:
    # - ~/.ssh/id_rsa.pub
 - name: Deploy SSH Key
-     authorized_key: user=ubuntu
-                     key="{{ lookup('file', 'id_rsa.pub') }}"
-                     state=present
+  authorized_key:
+    user: ubuntu
+    key: "{{ lookup('file', 'id_rsa.pub') }}"
+    state: present
